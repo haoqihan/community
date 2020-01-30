@@ -5,5 +5,6 @@
 
 ## 工具
 ## git命令
-git commit --amend --no-edit
+git commit --amend --no-edit  追加内容
+
 
