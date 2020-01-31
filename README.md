@@ -7,4 +7,10 @@
 ## git命令
 git commit --amend --no-edit  追加内容
 
+```bash
+
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
+
+
 
