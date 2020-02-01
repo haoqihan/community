@@ -1,0 +1,11 @@
+POST http://127.0.0.1:8887/comment
+Content-Type: application/json
+Cookie: token=6156ebe3-3bfb-47d8-884a-840ef0617695
+
+{
+  "parentId": "3",
+  "content": "ccc",
+  "type": 1
+}
+
+###

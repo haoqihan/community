@@ -8,7 +8,7 @@
 git commit --amend --no-edit  追加内容
 
 ```bash
-
+mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
 

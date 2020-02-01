@@ -1,7 +1,6 @@
 package life.majiang.community.controller;
 
 import life.majiang.community.dto.QuestionDTO;
-import life.majiang.community.mapper.QuestionMapper;
 import life.majiang.community.model.Question;
 import life.majiang.community.model.User;
 import life.majiang.community.service.QuestionService;
@@ -22,7 +21,7 @@ public class publishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") Integer id,Model model) {
+    public String edit(@PathVariable("id") long id,Model model) {
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
@@ -41,7 +40,7 @@ public class publishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") Integer id,
+            @RequestParam("id") long id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
