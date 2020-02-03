@@ -120,3 +120,24 @@ function collapseComments(e) {
         }
     }
 }
+
+
+function selectTag(e) {
+    let tag = e.dataset.tag;
+    let previous = $("#tag").val();
+    if (previous) {
+        let arr1 = previous.split(',');
+        if (arr1.includes(tag)) {
+            return
+        }
+        $("#tag").val(previous + "," + tag)
+    } else {
+        $("#tag").val(tag)
+    }
+
+}
+
+
+function showSelectTag() {
+    $("#select-tag").show();
+}

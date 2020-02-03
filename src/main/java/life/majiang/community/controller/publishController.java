@@ -1,9 +1,11 @@
 package life.majiang.community.controller;
 
+import life.majiang.community.cache.TagCache;
 import life.majiang.community.dto.QuestionDTO;
 import life.majiang.community.model.Question;
 import life.majiang.community.model.User;
 import life.majiang.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +23,19 @@ public class publishController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") long id,Model model) {
+    public String edit(@PathVariable("id") long id, Model model) {
         QuestionDTO question = questionService.getById(id);
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
         model.addAttribute("id", question.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -43,9 +47,15 @@ public class publishController {
             @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model) {
+        model.addAttribute("tags", TagCache.get());
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
+            return "publish";
+        }
         if (title == null || title == "") {
             model.addAttribute("error", "标题不能为空");
             return "publish";
@@ -59,9 +69,9 @@ public class publishController {
             return "publish";
         }
 
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            model.addAttribute("error", "用户未登录");
+        String invalid = TagCache.filterInValid(tag);
+        if (StringUtils.isNoneBlank(invalid)) {
+            model.addAttribute("error", "输入非法标签" + invalid);
             return "publish";
         }
         Question question = new Question();
