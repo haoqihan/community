@@ -40,7 +40,7 @@ public class publishController {
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("tag") String tag,
-            @RequestParam("id") long id,
+            @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
@@ -69,10 +69,8 @@ public class publishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-
         question.setId(id);
         questionService.createOrUpdate(question);
-
         return "redirect:/";
 
     }
