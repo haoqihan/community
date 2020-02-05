@@ -42,10 +42,8 @@ public class ProFileController {
             model.addAttribute("pagination", pagination);
         } else if ("replies".equals(action)) {
             PaginationDTO pagination = notificationService.list(user.getId(), page, size);
-            Long unreadCount = notificationService.unreadCount(user.getId());
             model.addAttribute("pagination", pagination);
             model.addAttribute("section", "replies");
-            model.addAttribute("unreadCount", unreadCount);
             model.addAttribute("sectionName", "最新回复");
         }
 
