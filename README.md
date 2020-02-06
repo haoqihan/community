@@ -12,5 +12,9 @@ mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
 
+```shell 
+mvn compile package # 下载相关maven依赖
+```
+
 
 
